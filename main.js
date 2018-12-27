@@ -1,7 +1,8 @@
 module.exports.loop = function() {
 
   for (let name in Game.creeps) {
-    var creep = Game.creeps.Charlie;
+    
+    var creep = Game.creeps[name];
 
     if (creep.memory.working == true && creep.carry.energy == 0) {
       creep.memory.working = false;
@@ -25,5 +26,5 @@ module.exports.loop = function() {
       }
     }
   }
-  
+
 };
