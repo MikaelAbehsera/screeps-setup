@@ -38,9 +38,9 @@ module.exports.loop = function () {
   var minimumNumberOfBuilders = 1;
 
 
-  var numberOfHarvesters = _.sum(Game.creeps, (c) => c.memory.role ==== "harvester");
-  var numberOfUpgraders = _.sum(Game.creeps, (c) => c.memory.role ==== "harvester");
-  var numberOfBuilders = _.sum(Game.creeps, (c) => c.memory.role ==== "harvester");
+  var numberOfHarvesters = _.sum(Game.creeps, (c) => c.memory.role === "harvester");
+  var numberOfUpgraders = _.sum(Game.creeps, (c) => c.memory.role === "harvester");
+  var numberOfBuilders = _.sum(Game.creeps, (c) => c.memory.role === "harvester");
   var name = undefined;
 
   if (numberOfHarvesters < minimumNumberOfHarvesters) {
