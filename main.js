@@ -3,6 +3,12 @@ var roleUpgrader = require("role.upgrader");
 
 module.exports.loop = function() {
 
+  for ( let name in Memory.creeps ) {
+    if ( Game.creeps[name] === undefined ) {
+      delete Memory.creeps[name];
+    }
+  }
+
   for (let name in Game.creeps) {
 
     var creep = Game.creeps[name];
