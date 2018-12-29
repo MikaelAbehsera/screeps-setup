@@ -30,62 +30,56 @@ module.exports.loop = function () {
     // if creep is builder, call builder script
     else if (creep.memory.role == "builder") {
       roleBuilder.run(creep);
-    }
-    // if creep is builder, call builder script
-    else if (creep.memory.role == "repairer") {
+    } else if (creep.memory.role == "repairer") {
       roleRepairer.run(creep);
     }
   }
 
   // setup some minimum numbers for different roles
-  var minimumNumberOfHarvesters = 10;
-  var minimumNumberOfUpgraders = 2;
-  var minimumNumberOfBuilders = 2;
-  var minimumNumberOfRepairers = 2;
+  var minimumNumberOfHarvesters = 12;
+  var minimumNumberOfUpgraders = 1;
+  var minimumNumberOfBuilders = 1;
+  var minimumNumberOfRepairers = 1;
 
-  // count the number of creeps alive for each role
-  // _.sum will count the number of properties in Game.creeps filtered by the
-  //  arrow function, which checks for the creep being a harvester
-  var numberOfHarvesters = _.sum(Game.creeps, (c) => c.memory.role === "harvester");
-  var numberOfUpgraders = _.sum(Game.creeps, (c) => c.memory.role === "upgrader");
-  var numberOfBuilders = _.sum(Game.creeps, (c) => c.memory.role === "builder");
-  var numberOfRepairers = _.sum(Game.creeps, (c) => c.memory.role === "repairer");
+  var numberOfHarvesters = _.sum(Game.creeps, (c) => c.memory.role == "harvester");
+  var numberOfUpgraders = _.sum(Game.creeps, (c) => c.memory.role == "upgrader");
+  var numberOfBuilders = _.sum(Game.creeps, (c) => c.memory.role == "builder");
+  var numberOfRepairers = _.sum(Game.creeps, (c) => c.memory.role == "repairer");
 
   var name = undefined;
 
-  // if not enough harvesters
   if (numberOfHarvesters < minimumNumberOfHarvesters) {
-    // try to spawn one
-    name = Game.spawns.HomeVb.createCreep([WORK, CARRY, CARRY, MOVE], undefined, {
+
+    name = Game.spawns.HomeVb.createCreep([WORK, WORK, CARRY, MOVE], undefined, {
       role: "harvester",
       working: false
     });
   }
-  // if not enough upgraders
+
   else if (numberOfUpgraders < minimumNumberOfUpgraders) {
-    // try to spawn one
-    name = Game.spawns.HomeVb.createCreep([WORK, CARRY, CARRY, MOVE], undefined, {
+
+    name = Game.spawns.HomeVb.createCreep([WORK, CARRY, MOVE, MOVE], undefined, {
       role: "upgrader",
       working: false
     });
   }
-  // if not enough builders
-  else if (numberOfBuilders < minimumNumberOfBuilders) {
-    // try to spawn one
-    name = Game.spawns.HomeVb.createCreep([WORK, CARRY, CARRY, MOVE], undefined, {
-      role: "builder",
+
+  else if (numberOfRepairers < minimumNumberOfRepairers) {
+
+    name = Game.spawns.HomeVb.createCreep([WORK, WORK, CARRY, MOVE], undefined, {
+      role: "repairer",
       working: false
     });
   }
-  // if not enough builders
-  else if (numberOfRepairers < minimumNumberOfRepairers) {
-    // try to spawn one
+
+  else if (numberOfBuilders < minimumNumberOfBuilders) {
+
     name = Game.spawns.HomeVb.createCreep([WORK, WORK, CARRY, MOVE], undefined, {
-      role: "repairs",
+      role: "builder",
       working: false
     });
   } else {
-    // else try to spawn a builder
+
     name = Game.spawns.HomeVb.createCreep([WORK, WORK, CARRY, MOVE], undefined, {
       role: "builder",
       working: false
@@ -95,6 +89,6 @@ module.exports.loop = function () {
   // print name to console if spawning was a success
   // name > 0 would not work since string > 0 returns false
   if (!(name < 0)) {
-    console.log("Spawned new creep: " + name);
+    console.log("Spawned new " + creep.memory.role + " creep: " + name);
   }
 };
