@@ -12,9 +12,9 @@ module.exports = {
 
     if (creep.memory.working == true) {
       if (
-        creep.transfer(Game.spawns.HomeVB, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE
+        creep.transfer(Game.spawns.HomeVb, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE
       ) {
-        creep.moveTo(Game.spawns.HomeVB);
+        creep.moveTo(Game.spawns.HomeVb);
       }
     } else {
       var source = creep.pos.findClosestByPath(FIND_SOURCES);
